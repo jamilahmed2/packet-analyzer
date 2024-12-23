@@ -10,36 +10,44 @@ Use this tool at your own risk. We do not take responsibility for any misuse of 
 
 
 # Usage Instructions
-# Prerequisites:
-Python 3: Ensure that Python 3 is installed on your system. You can download it from here.
+A simple Python-based packet sniffer built with Scapy that captures and analyzes network packets. It extracts detailed information like source and destination IPs, protocols (TCP, UDP, ICMP), and payload data.
 
-scapy Library: This tool uses the scapy library to capture and analyze network packets. To install it, run the following command:
+# Features
+Captures and displays packet summaries.
+Extracts detailed information for packets with IP layers.
+Identifies protocol types (TCP, UDP, ICMP).
+Displays raw payload data and attempts to decode it for text-based protocols.
+Easy-to-use interface for selecting the network interface.
 
-bash
-Copy code
+# Prerequisites
+Python: Ensure Python 3.8+ is installed. Download Python
+Scapy: Install the Scapy library:
+
+
 pip install scapy
-Running the Packet Sniffer:
-Download or Clone the Repository: Clone the repository or download the packet_sniffer.py file to your local machine.
+Npcap (Windows) or libpcap (Linux/Mac): https://npcap.com/dist/npcap-1.80.exe
+Windows: Install Npcap. Ensure "WinPcap API-compatible mode" is selected during installation.
+Linux/Mac: Install libpcap using your package manager:
 
-bash
-Copy code
-git clone https://github.com/yourusername/packet-sniffer.git
-Run the Script:
+sudo apt install libpcap-dev  # Ubuntu/Debian
+brew install libpcap          # macOS
+Usage
+Clone the repository:
 
-Open a terminal or command prompt.
 
-Navigate to the directory where the script is saved.
 
-Run the script with the following command (using sudo for elevated permissions, which are often required for packet sniffing):
+git clone https://github.com/jamilahmed2/packet-analyzer.git
+cd packet-analyzer
+Run the script with administrative privileges:
 
-bash
-Copy code
+Windows:
+
+
+python packet_sniffer.py
+Linux/Mac:
+
+
 sudo python packet_sniffer.py
-Input Network Interface: The script will prompt you to enter the network interface to sniff on (e.g., eth0, wlan0). Press Enter to use the default interface.
+Enter the network interface to sniff on (e.g., eth0, wlan0, or leave blank for the default interface).
 
-View Captured Data: Once running, the script will display information about each packet it captures, including:
-
-Source and destination IP addresses.
-Protocol type (TCP, UDP, ICMP).
-Payload data (if available and decodable).
-Stopping the Sniffer: To stop packet sniffing, press Ctrl + C in the terminal.
+Watch captured packets in real-time, along with detailed analysis.

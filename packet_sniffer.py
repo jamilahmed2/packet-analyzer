@@ -1,31 +1,32 @@
-from scapy.all import sniff, IP, TCP, UDP, Raw
+import scapy.all as scapy
+
 
 # Function to process each captured packet
 def packet_callback(packet):
     # Display packet summary
     print(packet.summary())
-    
+
     # If the packet has an IP layer, print detailed information
-    if packet.haslayer(IP):
-        ip_src = packet[IP].src
-        ip_dst = packet[IP].dst
-        protocol = packet[IP].proto
-        
+    if packet.haslayer(scapy.IP):
+        ip_src = packet[scapy.IP].src
+        ip_dst = packet[scapy.IP].dst
+        protocol = packet[scapy.IP].proto
+
         print(f"Source IP: {ip_src}")
         print(f"Destination IP: {ip_dst}")
         print(f"Protocol: {protocol}")
-        
+
         # Handling different protocol types (TCP, UDP, ICMP)
-        if packet.haslayer(TCP):
+        if packet.haslayer(scapy.TCP):
             print("Protocol Type: TCP")
-        elif packet.haslayer(UDP):
+        elif packet.haslayer(scapy.UDP):
             print("Protocol Type: UDP")
-        elif packet.haslayer(ICMP):
+        elif packet.haslayer(scapy.ICMP):
             print("Protocol Type: ICMP")
-        
+
         # Display payload data if available
-        if packet.haslayer(Raw):
-            payload = packet[Raw].load
+        if packet.haslayer(scapy.Raw):
+            payload = packet[scapy.Raw].load
             try:
                 # Try to decode the payload if it's a text-based protocol
                 decoded_payload = payload.decode("utf-8", errors="ignore")
@@ -34,10 +35,12 @@ def packet_callback(packet):
                 print(f"Payload Data: {payload}")
         print('-' * 50)
 
+
 # Start sniffing the network
 def start_sniffing(interface=None):
     print("Starting packet sniffing...")
-    sniff(iface=interface, prn=packet_callback, store=0)  # interface can be None for default interface
+    scapy.sniff(iface=interface, prn=packet_callback, store=0)  # Interface can be None for default interface
+
 
 # Run the packet sniffer
 if __name__ == "__main__":
